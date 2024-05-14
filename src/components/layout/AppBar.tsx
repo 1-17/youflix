@@ -16,8 +16,8 @@ const AppBar = () => {
 
   switch (true) {
     case pathname === "/":
-    navigationButton.href = "login"
-    navigationButton.text = "Login"
+    navigationButton.href = "sign_up"
+    navigationButton.text = "Sign up"
     break
     
     case pathname === "/new_video":
@@ -41,7 +41,7 @@ const AppBar = () => {
       <Bar position="sticky">
         <Toolbar component="nav" aria-label="Main navigation" sx={{ py: 2 }}>
           <Box aria-label="Logo" width={{ xs: 120, sm: 180 }} mx={{ xs: "auto", sm: "initial" }} sx={{
-            a: { display: "inline-block" }, svg: { display: "inline", verticalAlign: "middle" }
+            svg: { display: "inline", verticalAlign: "middle" }
           }}>
             <Logo />
           </Box>

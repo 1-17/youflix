@@ -20,6 +20,15 @@ theme.components = {
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh"
+      },
+      a: {
+        display: "inline-block",
+        color: theme.palette.primary.main,
+        fontWeight: 700,
+        textDecoration: "none",
+        ":hover": {
+          textDecoration: "underline"
+        }
       }
     }
   },

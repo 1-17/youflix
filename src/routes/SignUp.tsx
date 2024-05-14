@@ -1,22 +1,22 @@
-import { login } from "../firebase"
+import { signUp } from "../firebase"
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 import { useForm } from "react-hook-form"
 
-const Login = () => {
+const SignUp = () => {
   const { register, handleSubmit, setError, formState: { errors } } = useForm<UserCredentials>({ mode: "onBlur" })
   
   return (
     <Box
       component="form"
-      onSubmit={handleSubmit(data => login(data, setError))}
+      onSubmit={handleSubmit(data => signUp(data, setError))}
       autoComplete="off"
       aria-autocomplete="none"
       maxWidth={400}
       mx="auto"
       sx={{ "& > :not(h3)": { mt: 2 } }}
     >
-      <Typography component="h1" variant="h4" align="center">Login</Typography>
+      <Typography component="h1" variant="h4" align="center">Sign Up</Typography>
       <TextField
         id="email"
         {...register("email", {
@@ -46,11 +46,10 @@ const Login = () => {
         variant="filled"
         fullWidth
       />
-      <Typography>Forgot password? <Link to="/password_recovery">Recover</Link></Typography>
-      <Typography>Don't have an account? <Link to="/sign_up">Sign Up</Link></Typography>
+      <Typography>Already have an account? <Link to="/login">Login</Link></Typography>
       <Button type="submit" variant="contained" size="large" fullWidth>Let's go</Button>
     </Box>
   )
 }
 
-export default Login
+export default SignUp
