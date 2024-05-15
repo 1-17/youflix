@@ -1,6 +1,7 @@
+import { login } from "../firebase"
 import { Box, AppBar as Bar, Toolbar, Button, Hidden, Link, Typography, Container } from "@mui/material"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
-import Logo from "../Logo"
+import Logo from "./Logo"
 
 type NavigationButton = {
   href: string
@@ -10,25 +11,25 @@ type NavigationButton = {
 }
 
 const AppBar = () => {
-  const navigate = useNavigate()
   const { pathname } = useLocation()
+  const navigate = useNavigate()
   const navigationButton = {} as NavigationButton
 
   switch (true) {
     case pathname === "/":
-    navigationButton.href = "sign_up"
-    navigationButton.text = "Sign up"
-    break
+      navigationButton.href = !login.isLogged ? "login" : "new_video"
+      navigationButton.text = !login.isLogged ? "Login" : "New video"
+      break
     
     case pathname === "/new_video":
-    navigationButton.href = "new_category"
-    navigationButton.text = "New category"
-    break
+      navigationButton.href = "new_category"
+      navigationButton.text = "New category"
+      break
     
     case pathname === "/new_category":
-    navigationButton.href = "new_video"
-    navigationButton.text = "New video"
-    break
+      navigationButton.href = "new_video"
+      navigationButton.text = "New video"
+      break
   }
 
   if (navigationButton.href) {
@@ -38,6 +39,7 @@ const AppBar = () => {
 
   return (
     <>
+      {/* Header */}
       <Bar position="sticky">
         <Toolbar component="nav" aria-label="Main navigation" sx={{ py: 2 }}>
           <Box aria-label="Logo" width={{ xs: 120, sm: 180 }} mx={{ xs: "auto", sm: "initial" }} sx={{
@@ -67,9 +69,11 @@ const AppBar = () => {
           )}
         </Toolbar>
       </Bar>
+      {/* Main + Route Outlet */}
       <Container component="main" maxWidth={false} sx={{ flexGrow: 1, pt: 4, pb: 8 }}>
         <Outlet />
       </Container>
+      {/* Footer */}
       <Hidden {...navigationButton.isValid && { smDown: true }}>
         <Bar component="footer" position="static">
           <Toolbar aria-label="Credits">
