@@ -35,6 +35,7 @@ theme.components = {
   MuiFormHelperText: {
     styleOverrides: {
       root: {
+        color: theme.palette.error.main,
         marginLeft: 0,
         ":before": {
           content: "''",
