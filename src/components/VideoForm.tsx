@@ -88,7 +88,7 @@ export const VideoForm = ({ isEditRoute }: VideoFormProps) => {
       aria-labelledby="form_title"
       maxWidth="sm"
       mx="auto"
-      sx={{ "> :not(h3)": { mt: 2 } }}
+      sx={{ "> :not(h1)": { mt: 2 } }}
     >
       <Typography id="form_title" component="h1" variant="h4" align="center">
         {`${!isEditRoute ? "New" : "Edit"} Video`}
