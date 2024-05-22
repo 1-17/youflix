@@ -9,4 +9,4 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_YOUFLIX_FIREBASE_APP_ID
 }
 
-export const initApp = () => initializeApp(firebaseConfig)
+export const initFirebase = () => initializeApp(firebaseConfig)

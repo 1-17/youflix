@@ -1,16 +1,12 @@
 import { login } from "../firebase"
 import { BrowserRouter, Routes as RouterRoutes, Route, Navigate } from "react-router-dom"
-import { CategoryForm, LoginForm, VideoForm } from "../components"
+import { AppLayout, CategoryForm, LoginForm, VideoForm } from "../components"
 
-type RoutesProps = {
-  wrapper: React.ReactNode
-}
-
-const Routes = ({ wrapper }: RoutesProps) => {
+const Routes = () => {
   return (
     <BrowserRouter>
       <RouterRoutes>
-        <Route path="/" element={wrapper}>
+        <Route path="/" element={<AppLayout />}>
           <Route index element={!login.isLogged ? "not logged" : "logged"} />
           <Route path="login" element={!login.isLogged ? <LoginForm /> : <Navigate to="/" />} />
           <Route path="login_confirmation" element={!login.isLogged ? <LoginForm isConfirmationRoute /> : <Navigate to="/" />} />

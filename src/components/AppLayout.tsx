@@ -10,7 +10,7 @@ type NavigationButton = {
   navigate: React.MouseEventHandler<HTMLButtonElement>
 }
 
-const AppBar = () => {
+export const AppLayout = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const navigationButton = {} as NavigationButton
@@ -90,5 +90,3 @@ const AppBar = () => {
     </>
   )
 }
-
-export default AppBar
