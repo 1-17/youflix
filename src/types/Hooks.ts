@@ -10,9 +10,9 @@ type RoutesNames =
   "notFound"
 
 export type Paths = Record<RoutesNames, {
-  isCurrentPath: boolean,
-  name: string,
   path: string
+  name: string
+  isCurrentPath: boolean
 }>
 
 // useNavigationButton

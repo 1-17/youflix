@@ -20,7 +20,7 @@ export const AppLayout = () => {
             <>
               {/* Mobile Navigation Button */}
               <Hidden smUp>
-                <Button onClick={navigationButton.navigate} variant="contained" size="large" fullWidth sx={{
+                <Button onClick={navigationButton.navigate} fullWidth sx={{
                   borderRadius: 0, position: "fixed", left: 0, bottom: 0, py: 1.5
                 }}>
                   {navigationButton.text}
@@ -28,7 +28,7 @@ export const AppLayout = () => {
               </Hidden>
               {/* Desktop Navigation Button */}
               <Hidden smDown>
-                <Button onClick={navigationButton.navigate} variant="outlined" color="inherit" size="large" sx={{
+                <Button onClick={navigationButton.navigate} variant="outlined" color="inherit" sx={{
                   lineHeight: 2, minWidth: 180, ml: "auto"
                 }}>
                   {navigationButton.text}

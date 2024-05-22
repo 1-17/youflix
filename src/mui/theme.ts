@@ -32,6 +32,12 @@ theme.components = {
       }
     }
   },
+  MuiButton: {
+    defaultProps: {
+      variant: "contained",
+      size: "large"
+    }
+  },
   MuiFormHelperText: {
     styleOverrides: {
       root: {

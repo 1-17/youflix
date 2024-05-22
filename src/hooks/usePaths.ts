@@ -4,53 +4,33 @@ import { Paths } from "../types"
 export const usePaths = () => {
   const { pathname } = useLocation()
 
-  const paths: Paths = {
-    home: {
-      isCurrentPath: false,
-      name: "Home",
-      path: "/"
-    },
-    login: {
-      isCurrentPath: false,
-      name: "Login",
-      path: "/login"
-    },
-    loginConfirmation: {
-      isCurrentPath: false,
-      name: "Login Confirmation",
-      path: "/login_confirmation"
-    },
-    newVideo: {
-      isCurrentPath: false,
-      name: "New Video",
-      path: "/new_video"
-    },
-    editVideo: {
-      isCurrentPath: false,
-      name: "Edit Video",
-      path: "/edit_video"
-    },
-    newCategory: {
-      isCurrentPath: false,
-      name: "New Category",
-      path: "/new_category"
-    },
-    editCategory: {
-      isCurrentPath: false,
-      name: "Edit Category",
-      path: "/edit_category"
-    },
-    notFound: {
-      isCurrentPath: false,
-      name: "Not Found",
-      path: "*"
-    }
-  }
+  const paths = {
+    home: { path: "/", name: "Home" },
+    login: { path: "/login" },
+    loginConfirmation: { path: "/login_confirmation" },
+    newVideo: { path: "/new_video" },
+    editVideo: { path: "/edit_video" },
+    newCategory: { path: "/new_category" },
+    editCategory: { path: "/edit_category" },
+    notFound: { path: "*", name: "Not Found" }
+  } as Paths
+
+  let currentName: string = ""
 
   for (const key of Object.keys(paths)) {
-    const path = paths[key as keyof typeof paths]
-    path.isCurrentPath = pathname === path.path
-  }
+    const pathKey = paths[key as keyof typeof paths]
+    const formattedPath = pathKey.path.replace("/", "").replace("_", " ").replace(/\b\w/g, l => l.toUpperCase())
 
-  return paths
+    if (!pathKey.name) {
+      pathKey.name = formattedPath
+    }
+
+    pathKey.isCurrentPath = pathname === pathKey.path
+
+    if (pathKey.isCurrentPath) {
+      currentName = pathKey.name
+    }
+  }
+  
+  return { ...paths, currentName }
 }
