@@ -1,23 +1,14 @@
 import { Box, Button, Stack, Typography } from "@mui/material"
 import { usePaths } from "../hooks"
+import { FormProps } from "../types"
 
-type FormProps = {
-  handleSubmit: React.FormEventHandler<HTMLFormElement>
-  children: React.ReactNode
-  reset?: () => void
-}
-
-const Form = ({ handleSubmit, children, reset }: FormProps) => {
-  if (!handleSubmit) {
-    throw new Error("Form: Missing handleSubmit argument.")
-  }
-
+const Form = ({ onSubmit, children, reset, submitButtonText }: FormProps) => {
   const { currentName } = usePaths()
 
   return (
     <Box
       component="form"
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       autoComplete="off"
       aria-autocomplete="none"
       aria-labelledby="form_title"
@@ -29,7 +20,7 @@ const Form = ({ handleSubmit, children, reset }: FormProps) => {
       {children}
       {!reset ? (
         <Button type="submit" fullWidth>
-          Save
+          {submitButtonText || "Save"}
         </Button>
       ) : (
         <Stack direction="row" spacing={2} maxWidth={400} ml="auto">
@@ -37,7 +28,7 @@ const Form = ({ handleSubmit, children, reset }: FormProps) => {
             Reset
           </Button>
           <Button type="submit" fullWidth>
-            Save
+            {submitButtonText || "Save"}
           </Button>
         </Stack>
       )}

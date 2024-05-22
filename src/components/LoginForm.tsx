@@ -1,33 +1,29 @@
-import { Box, Button, TextField, Typography } from "@mui/material"
+import { TextField, Typography } from "@mui/material"
 import { useForm } from "react-hook-form"
 import { UserCredential, login } from "../firebase"
+import { usePaths } from "../hooks"
+import Form from "./Form"
 
-type LoginFormProps = {
-  isConfirmationRoute?: boolean
-}
-
-export const LoginForm = ({ isConfirmationRoute }: LoginFormProps) => {
+export const LoginForm = () => {
   const { register, handleSubmit, setError, formState: { errors } } = useForm<UserCredential>({ mode: "onBlur" })
+  const { loginConfirmation } = usePaths()
 
-  if (isConfirmationRoute) {
+  if (loginConfirmation.isCurrentPath) {
     login.confirm()
+  }
+
+  const submitLogin = (data: UserCredential) => {
+    if (loginConfirmation.isCurrentPath) {
+      login.confirm(data.email, setError)
+      return
+    }
+
+    login.request(data.email, setError)
   }
   
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(data => !isConfirmationRoute ? login.request(data.email, setError) : login.confirm(data.email, setError))}
-      autoComplete="off"
-      aria-autocomplete="none"
-      aria-labelledby="form_title"
-      maxWidth={400}
-      mx="auto"
-      sx={{ "> :not(h1)": { mt: 2 } }}
-    >
-      <Typography id="form_title" component="h1" variant="h4" align="center">
-        {!isConfirmationRoute ? "Login" : "Login Confirmation"}
-      </Typography>
-      {isConfirmationRoute && (
+    <Form onSubmit={handleSubmit(submitLogin)} submitButtonText="Let's go">
+      {loginConfirmation.isCurrentPath && (
         <Typography>Please, confirm the same email to login.</Typography>
       )}
       <TextField
@@ -40,12 +36,7 @@ export const LoginForm = ({ isConfirmationRoute }: LoginFormProps) => {
         label="Email"
         type="email"
         aria-describedby="email-helper-text"
-        variant="filled"
-        fullWidth
       />
-      <Button type="submit" variant="contained" size="large" fullWidth>
-        Let's go
-      </Button>
-    </Box>
+    </Form>
   )
 }

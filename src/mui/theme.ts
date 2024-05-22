@@ -38,6 +38,12 @@ theme.components = {
       size: "large"
     }
   },
+  MuiTextField: {
+    defaultProps: {
+      variant: "filled",
+      fullWidth: true
+    }
+  },
   MuiFormHelperText: {
     styleOverrides: {
       root: {
