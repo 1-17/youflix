@@ -1,46 +1,15 @@
-import { login } from "../firebase"
-import { Box, AppBar as Bar, Toolbar, Button, Hidden, Link, Typography, Container } from "@mui/material"
-import { Outlet, useLocation, useNavigate } from "react-router-dom"
+import { AppBar, Box, Button, Container, Hidden, Link, Toolbar, Typography } from "@mui/material"
+import { Outlet } from "react-router-dom"
+import { useNavigationButton } from "../hooks"
 import Logo from "./Logo"
 
-type NavigationButton = {
-  href: string
-  text: string
-  isValid: boolean
-  navigate: React.MouseEventHandler<HTMLButtonElement>
-}
-
 export const AppLayout = () => {
-  const { pathname } = useLocation()
-  const navigate = useNavigate()
-  const navigationButton = {} as NavigationButton
-
-  switch (true) {
-    case pathname === "/":
-      navigationButton.href = !login.isLogged ? "login" : "new_video"
-      navigationButton.text = !login.isLogged ? "Login" : "New video"
-      break
-    
-    case pathname === "/new_video":
-      navigationButton.href = "new_category"
-      navigationButton.text = "New category"
-      break
-    
-    case pathname === "/new_category":
-      navigationButton.href = "new_video"
-      navigationButton.text = "New video"
-      break
-  }
-
-  if (navigationButton.href) {
-    navigationButton.isValid = true
-    navigationButton.navigate = () => navigate(navigationButton.href)
-  }
+  const navigationButton = useNavigationButton()
 
   return (
     <>
       {/* Header */}
-      <Bar position="sticky">
+      <AppBar position="sticky">
         <Toolbar component="nav" aria-label="Main navigation" sx={{ py: 2 }}>
           <Box aria-label="Logo" width={{ xs: 120, sm: 180 }} mx={{ xs: "auto", sm: "initial" }} sx={{
             svg: { display: "inline", verticalAlign: "middle" }
@@ -68,14 +37,14 @@ export const AppLayout = () => {
             </>
           )}
         </Toolbar>
-      </Bar>
+      </AppBar>
       {/* Main + Route Outlet */}
       <Container component="main" maxWidth={false} sx={{ flexGrow: 1, pt: 4, pb: 8 }}>
         <Outlet />
       </Container>
       {/* Footer */}
       <Hidden {...navigationButton.isValid && { smDown: true }}>
-        <Bar component="footer" position="static">
+        <AppBar component="footer" position="static">
           <Toolbar aria-label="Credits">
             <Typography aria-label="Copyright" component="span" mr={2}>© 2024 YouFlix</Typography>
             <Typography aria-label="Author" component="span" ml="auto">
@@ -85,7 +54,7 @@ export const AppLayout = () => {
               </Link>
             </Typography>
           </Toolbar>
-        </Bar>
+        </AppBar>
       </Hidden>
     </>
   )
